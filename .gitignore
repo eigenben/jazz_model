@@ -1,1 +1,8 @@
-log/*.log
+/.bundle/
+/coverage/
+/doc/
+/pkg/
+/tmp/
+/.yardoc/
+*.gem
+.rspec_status
