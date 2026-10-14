@@ -15,8 +15,8 @@ JazzModel::Definition.define :default => [:keys] do
     s.modes.create!(:mode => 3, :name => 'Phrygian')
     s.modes.create!(:mode => 4, :name => 'Lydian')
     s.modes.create!(:mode => 5, :name => 'Mixolydian')
-    s.modes.create!(:name => 6, :name => 'Aeolian')
-    s.modes.create!(:name => 7, :name => 'Locrian')
+    s.modes.create!(:mode => 6, :name => 'Aeolian')
+    s.modes.create!(:mode => 7, :name => 'Locrian')
   end
 
   JazzModel::Scale.create!(:name => 'Melodic Minor').tap do |s|
@@ -35,8 +35,8 @@ JazzModel::Definition.define :default => [:keys] do
     s.modes.create!(:mode => 3, :name => 'Lydian Augmented')
     s.modes.create!(:mode => 4, :name => 'Lydian Dominant', :synonyms => 'Mixolydian #4')
     s.modes.create!(:mode => 5, :name => 'Mixolydian b6')
-    s.modes.create!(:name => 6, :name => 'Locrian #2', :synonyms => 'Aeolian b5')
-    s.modes.create!(:name => 7, :name => 'Super Locrian', :synonyms => 'Diminished Whole Tone')
+    s.modes.create!(:mode => 6, :name => 'Locrian #2', :synonyms => 'Aeolian b5')
+    s.modes.create!(:mode => 7, :name => 'Super Locrian', :synonyms => 'Diminished Whole Tone')
   end
 
   JazzModel::Scale.create!(:name => 'Whole Tone', :symmetry_index => 2).tap do |s|

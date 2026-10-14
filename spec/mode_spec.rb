@@ -5,3 +5,20 @@ RSpec.describe JazzModel::Mode do
     expect(mode.notes).to eq(%w[D E F G A B C])
   end
 end
+
+RSpec.describe JazzModel::Mode, "numbering" do
+  {
+    ["Major", 6] => "Aeolian",
+    ["Major", 7] => "Locrian",
+    ["Melodic Minor", 6] => "Locrian #2",
+    ["Melodic Minor", 7] => "Super Locrian"
+  }.each do |(scale, number), name|
+    it "finds #{scale} mode #{number} as #{name}" do
+      expect(JazzModel::Scale[scale][number].name).to eq(name)
+    end
+  end
+
+  it "spells Super Locrian from the seventh degree" do
+    expect(JazzModel::Scale["Melodic Minor"]["Super Locrian"].notes).to eq(%w[B C D Eb F G A])
+  end
+end
