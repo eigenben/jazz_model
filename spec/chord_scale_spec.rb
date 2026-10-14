@@ -1,7 +1,5 @@
-require "spec_helper"
-
-describe JazzModel::ChordScale do
-  subject { JazzModel::ChordScale.new }
-  
-  it { should be_valid }
+RSpec.describe JazzModel::ChordScale do
+  it "is valid when new" do
+    expect(described_class.new).to be_valid
+  end
 end

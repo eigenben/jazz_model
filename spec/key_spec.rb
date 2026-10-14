@@ -1,15 +1,13 @@
-require "spec_helper"
+RSpec.describe JazzModel::Key do
+  it "defaults to C" do
+    expect(described_class.default.name).to eq("C")
+  end
 
-describe JazzModel::Key do
-  it "should default to C" do
-    JazzModel::Key.default.name.should == "C"
+  it "exposes 12 primary keys" do
+    expect(described_class.primaries.size).to eq(12)
   end
-  
-  it "should expose 12 primary keys" do
-    JazzModel::Key.should have(12).primaries
-  end
-  
-  it "should treat Eb and D# as enharmonic" do
-    JazzModel::Key['Eb'].should be_enharmonic_with(JazzModel::Key['D#'])
+
+  it "treats Eb and D# as enharmonic" do
+    expect(described_class["Eb"]).to be_enharmonic_with(described_class["D#"])
   end
 end

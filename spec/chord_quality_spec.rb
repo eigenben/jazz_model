@@ -1,27 +1,11 @@
-require "spec_helper"
+RSpec.describe JazzModel::ChordQuality do
+  it "is valid when new" do
+    expect(described_class.new).to be_valid
+  end
 
-describe JazzModel::ChordQuality do
-  subject { JazzModel::ChordQuality.new }
-  
-  it { should be_valid }
-  
-  context "of Major" do
-    subject { JazzModel::ChordQuality.find_by_name('Major') }
-    it { should be_valid }
-  end
-  
-  context "of Minor" do
-    subject { JazzModel::ChordQuality.find_by_name('Minor') }
-    it { should be_valid }
-  end
-  
-  context "of Dominant" do
-    subject { JazzModel::ChordQuality.find_by_name('Dominant') }
-    it { should be_valid }
-  end
-  
-  context "of Diminished" do
-    subject { JazzModel::ChordQuality.find_by_name('Diminished') }
-    it { should be_valid }
+  %w[Major Minor Dominant Diminished].each do |name|
+    it "defines the #{name} quality" do
+      expect(described_class[name]).to be_valid
+    end
   end
 end

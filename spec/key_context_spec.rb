@@ -1,27 +1,25 @@
-require "spec_helper"
-
-describe JazzModel::KeyContext do
+RSpec.describe JazzModel::KeyContext do
   describe "chord without context" do
-    subject { JazzModel::Chord['maj7'] } 
-    
-    it "should accept key context" do
-      subject.in_key_of('G').key.name.should == 'G'
+    subject(:chord) { JazzModel::Chord["maj7"] }
+
+    it "accepts key context" do
+      expect(chord.in_key_of("G").key.name).to eq("G")
     end
-    
-    it "should should accept then remove key context" do
-      subject.in_key_of('G').without_key.key.should be_nil
+
+    it "accepts then removes key context" do
+      expect(chord.in_key_of("G").without_key.key).to be_nil
     end
   end
-  
+
   describe "chord with context" do
-    subject { JazzModel::Chord['Fmaj7'] }
-    
-    it "should have correct context" do
-      subject.key.name.should == 'F'
+    subject(:chord) { JazzModel::Chord["Fmaj7"] }
+
+    it "has the correct context" do
+      expect(chord.key.name).to eq("F")
     end
-    
-    it "should be put out of context" do
-      subject.without_key.key.should be_nil
+
+    it "can be put out of context" do
+      expect(chord.without_key.key).to be_nil
     end
   end
 end

@@ -1,9 +1,7 @@
-require "spec_helper"
+RSpec.describe JazzModel::Mode do
+  subject(:mode) { JazzModel::Scale["CMajor"].modes["Dorian"] }
 
-describe JazzModel::Mode do
-  subject { JazzModel::Scale['CMajor'].modes['Dorian'] }
-  
-  it "should yield correct notes" do
-    subject.notes.should == ['D', 'E', 'F', 'G', 'A', 'B', 'C']
+  it "yields the correct notes" do
+    expect(mode.notes).to eq(%w[D E F G A B C])
   end
 end

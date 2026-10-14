@@ -1,17 +1,15 @@
-require "spec_helper"
+RSpec.describe JazzModel::ToneSequence do
+  subject(:chord) { JazzModel::Chord["Cmaj7"] }
 
-describe JazzModel::ToneSequence do
-  subject { JazzModel::Chord['Cmaj7'] }
-  
-  it "should should accept key context" do
-    subject.tones.in_key_of('F').notes.first.should == 'F'
+  it "accepts key context" do
+    expect(chord.tones.in_key_of("F").notes.first).to eq("F")
   end
-  
-  it "should yield all notes" do
-    subject.tones.all.first.position.should == 1
+
+  it "orders tones by position" do
+    expect(chord.tones.in_context.map(&:position)).to eq([1, 2, 3, 4])
   end
-  
-  it "should accept mode context" do
-    subject.tones.in_mode(2).notes.first.should == 'E'
+
+  it "accepts mode context" do
+    expect(chord.tones.in_mode(2).notes.first).to eq("E")
   end
 end

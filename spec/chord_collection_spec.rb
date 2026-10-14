@@ -1,21 +1,19 @@
-require "spec_helper"
+RSpec.describe JazzModel::ChordCollection do
+  subject(:chords) { JazzModel::Scale["Major"].modes[1].chords }
 
-describe JazzModel::ChordCollection do
-  subject { JazzModel::Scale['Major'].modes[1].chords }
-  
-  it "should emit symbols list" do
-    subject.to_s(:symbols).should be_starts_with('maj')
+  it "emits a symbols list" do
+    expect(chords.to_s(:symbols)).to start_with("maj")
   end
-  
-  it "should emit names list" do
-    subject.to_s(:names).should be_starts_with('Major')
+
+  it "emits a names list" do
+    expect(chords.to_s(:names)).to start_with("Major")
   end
-  
-  it "should resolve chord within" do
-    subject['maj'].should_not be_nil
+
+  it "resolves a chord within" do
+    expect(chords["maj"]).not_to be_nil
   end
-  
-  it "should resolve chord within with key context" do
-    subject['Cmaj'].should_not be_nil
+
+  it "resolves a chord within with key context" do
+    expect(chords["Cmaj"]).not_to be_nil
   end
 end

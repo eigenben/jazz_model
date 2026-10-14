@@ -1,6 +1,5 @@
-require "spec_helper"
-
-describe JazzModel::ChordSymbol do
-  subject { JazzModel::ChordSymbol.new }
-  it { should be_valid }
+RSpec.describe JazzModel::ChordSymbol do
+  it "is valid when new" do
+    expect(described_class.new).to be_valid
+  end
 end

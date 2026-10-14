@@ -1,34 +1,30 @@
-require "spec_helper"
-
-describe JazzModel::Definition do
+RSpec.describe JazzModel::Definition do
   context "after creating a definition" do
     before(:all) do
-      JazzModel::Definition.define :my_definition => [:keys] do
-        JazzModel::Scale.create!(:name => "Sample")
+      described_class.define my_definition: [:keys] do
+        JazzModel::Scale.create!(name: "Sample")
       end
     end
-    
-    it "should have registered my_definition" do
-      JazzModel::Definition[:my_definition].should_not be_nil
+
+    let(:definition) { described_class[:my_definition] }
+
+    it "registers my_definition" do
+      expect(definition).not_to be_nil
     end
-    
-    describe "the definition" do
-      before { @definition = JazzModel::Definition[:my_definition] }
-      
-      it "should list keys as an included_definition" do
-        @definition.included_definitions.should include(:keys)
+
+    it "lists keys as an included definition" do
+      expect(definition.included_definitions).to include(:keys)
+    end
+
+    context "when loaded" do
+      before { definition.load }
+
+      it "creates keys" do
+        expect(JazzModel::Key.find_by_name("C")).not_to be_nil
       end
-      
-      context "when loaded" do
-        before { @definition.load }
-        
-        it "should create keys" do
-          JazzModel::Key.find_by_name("C").should_not be_nil
-        end
-        
-        it "should create sample scale" do
-          JazzModel::Scale.find_by_name("Sample").should_not be_nil
-        end
+
+      it "creates the sample scale" do
+        expect(JazzModel::Scale.find_by_name("Sample")).not_to be_nil
       end
     end
   end
