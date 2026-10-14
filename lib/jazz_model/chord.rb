@@ -79,63 +79,43 @@ module JazzModel
   #   # => ['A Dorian']
   # 
   class Chord < JazzModel::Base
+    include ActsAsTree
     include KeyContext
-    
+
     acts_as_tree
-    
+
     belongs_to :chord_quality
-  
-    has_many :symbols, :class_name => 'ChordSymbol', :extend => ChordSymbolCollection
-    has_one :primary_symbol, :class_name => 'ChordSymbol', :conditions => {:primary => true}
-  
+
+    has_many :symbols, class_name: "ChordSymbol", extend: ChordSymbolCollection
+    has_one :primary_symbol, -> { where(primary: true) }, class_name: "ChordSymbol"
+
     has_many :chord_scales
-    has_many :modes, :through => :chord_scales
-    has_many :tones, :class_name => 'ChordTone', :extend => ToneSequence
+    has_many :modes, through: :chord_scales
+    has_many :tones, class_name: "ChordTone", extend: ToneSequence
     has_many :voicings
-  
-    delegate :notes, :to => :tones
-  
+
+    delegate :notes, to: :tones
+
     def symbols_list
-      self.symbols.map {|s| s.name }.join(', ')
+      symbols.map(&:name).join(", ")
     end
-  
+
     class << self
-    
-      # Resolves a chord symbol into a chord.
-      # Implementation is somewhat flakey due to the potential ambiguities arising 
-      # from specifying key and symbols together.
+      # Resolves a chord symbol, optionally prefixed with a key, into a chord.
+      # Ambiguous prefixes are tried longest key first, so "Cbmaj7" is a C-flat
+      # major 7th while "Cb5" falls back to a C chord with a flat 5th.
       def resolve(symbol)
-        in_key = nil
-      
         return nil if symbol.nil?
-        symbol = symbol.dup
-      
-        Key.all.each do |k|
-          if symbol.starts_with?(k.name)
-            in_key = k
-            symbol.sub!(k.name, '').strip
-            break
-          end
+
+        KeyContext.each_split(symbol) do |in_key, rest|
+          chord_symbol = ChordSymbol[rest] or next
+          chord = chord_symbol.chord
+          chord.key = in_key
+          return chord
         end
-      
-        chord_symbol = ChordSymbol[symbol]
-      
-        # Perhaps the matched key was really part of the name of the chord, try that:
-        if chord_symbol.nil? && !in_key.nil?
-          symbol = in_key.name + symbol
-          chord_symbol = ChordSymbol[symbol]
-        end
-      
-        # If still not found, must be invalid:
-        return nil if chord_symbol.nil?
-      
-        chord = chord_symbol.chord
-        chord.key = in_key unless in_key.nil?
-        chord
+        nil
       end
       alias_method :[], :resolve
-    
     end
-  
   end
 end

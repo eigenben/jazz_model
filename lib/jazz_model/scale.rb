@@ -76,61 +76,39 @@ module JazzModel
     include KeyContext
     include ModeContext
     
-    has_many :modes, :extend => ModeSequence, :dependent => :destroy
-    has_many :tones, :class_name => 'ScaleTone', :extend => ToneSequence, :dependent => :destroy
-  
-    delegate :notes, :to => :tones
-    delegate :chords, :to => :main_mode
-  
+    has_many :modes, extend: ModeSequence, dependent: :destroy
+    has_many :tones, class_name: "ScaleTone", extend: ToneSequence, dependent: :destroy
+
+    delegate :notes, to: :tones
+    delegate :chords, to: :main_mode
+
     class << self
+      # Resolves a scale name, optionally prefixed with a key (such as
+      # "Eb Major"), into a scale.
       def resolve(symbol)
-        in_key = nil
-      
         return nil if symbol.nil?
-        symbol = symbol.dup
-      
-        Key.all.each do |k|
-          if symbol.starts_with?(k.name)
-            in_key = k
-            symbol.gsub!(/^#{k.name}/, '').strip!
-            break
-          end
+
+        KeyContext.each_split(symbol) do |in_key, rest|
+          scale = find_by_name(rest) or next
+          scale.key = in_key
+          return scale
         end
-      
-        scale = Scale.find_by_name(symbol)
-      
-        # Perhaps the matched key was really part of the name of the chord, try that:
-        if scale.nil? && !in_key.nil?
-          symbol = in_key.name + symbol
-          scale = Scale.all.detect {|s| s.name == symbol}
-        end
-      
-        # If still not found, must be invalid:
-        return nil if scale.nil?
-      
-        scale.key = in_key
-        scale
+        nil
       end
       alias_method :[], :resolve
     end
-  
+
+    # Finds a mode of this scale by name or number, passing along key context.
     def [](name)
-      name.is_a?(String) ? self.modes.find_by_name(name) : self.modes.find_by_mode(name)
+      modes[name]
     end
-  
+
     def main_mode
       self[1]
     end
-  
-    def symmetric?
-      !self.symmetry_index.nil?
-    end
-  
-  
-    def to_xml(options = {})
-      super(options.merge(:skip_types => true))
-    end
-  
-  end
 
+    def symmetric?
+      !symmetry_index.nil?
+    end
+  end
 end

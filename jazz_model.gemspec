@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 3.2"
 
-  s.add_dependency "activerecord", ">= 7.1", "< 9"
-  s.add_dependency "activesupport", ">= 7.1", "< 9"
+  s.add_dependency "activerecord", ">= 7.2", "< 9"
+  s.add_dependency "activesupport", ">= 7.2", "< 9"
   s.add_dependency "acts_as_list", ">= 1.0"
   s.add_dependency "acts_as_tree", ">= 2.9"
   s.add_dependency "sqlite3", ">= 2.0"

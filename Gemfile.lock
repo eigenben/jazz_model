@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     jazz_model (0.1.0)
-      activerecord (>= 7.1, < 9)
-      activesupport (>= 7.1, < 9)
+      activerecord (>= 7.2, < 9)
+      activesupport (>= 7.2, < 9)
       acts_as_list (>= 1.0)
       acts_as_tree (>= 2.9)
       sqlite3 (>= 2.0)

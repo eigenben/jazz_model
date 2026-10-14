@@ -16,11 +16,14 @@ module JazzModel
     class << self
       # Finds a chord symbol
       def resolve(symbol)
-        self.all.detect do |cs|
-          cs.case_sensitive? ? (cs.name == symbol) : (cs.name.downcase == symbol.downcase)
-        end
+        all.detect { |cs| cs.matches?(symbol) }
       end
       alias_method :[], :resolve
+    end
+
+    # Tests whether +symbol+ matches this chord symbol, respecting case sensitivity.
+    def matches?(symbol)
+      case_sensitive? ? name == symbol : name.casecmp?(symbol)
     end
   
   end

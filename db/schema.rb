@@ -1,4 +1,4 @@
-JazzModel::Base.connection.tap do |c|
+JazzModel::Base.with_connection do |c|
   c.create_table :keys do |t|
     t.string :name
     t.string :long_name
@@ -74,7 +74,7 @@ JazzModel::Base.connection.tap do |c|
   end
   
   c.create_table :voicing_tones do |t|
-    t.belongs_to :voicings
+    t.belongs_to :voicing
     t.integer :position
     t.integer :tone
     t.integer :tone_reference_offset, :default => 0

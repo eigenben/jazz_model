@@ -33,7 +33,7 @@ module JazzModel
   
     # Returns an array of the 12 primary keys (definitions around the cycle of fourths)
     def self.primaries
-      self.find_all_by_primary(true)
+      where(primary: true).to_a
     end
   
     def self.default

@@ -38,7 +38,6 @@ module JazzModel
     attr_accessor :invalid_keys
   
     def initialize(value = [])
-      @value_as_given = value
       @keys = []
       @invalid_keys = []
     
@@ -70,12 +69,6 @@ module JazzModel
         end.flatten
       end.extend(ChordCollection)
     end
-  
-    # XML Representation
-    def to_xml
-      '<NotesCollection name="' + @value_as_given.to_s + '"></NotesCollection>'
-    end
-  
   
     private
   

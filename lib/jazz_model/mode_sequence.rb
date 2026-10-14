@@ -1,14 +1,15 @@
 module JazzModel
-  # Extends the Scale.modes association by allowing indexed access to modes. 
-  # Whn using it in this manner, key context is passed along.
-  # 
+  # Extends the Scale.modes association by allowing indexed access to modes.
+  # When using it in this manner, key context is passed along.
+  #
   module ModeSequence
     def [](value)
-      mode_object = self.find(:first, :conditions => ["name = ? OR mode = ?", value, value])
+      mode_object = where("name = ? OR mode = ?", value, value).first
       return nil if mode_object.nil?
-    
+
       # Pass Along Key Information
-      mode_object.key = proxy_owner.key if proxy_owner.respond_to?(:key) and !proxy_owner.key.nil?
+      owner = proxy_association.owner
+      mode_object.key = owner.key if owner.respond_to?(:key) && !owner.key.nil?
       mode_object
     end
   end

@@ -1,17 +1,10 @@
 module JazzModel
   # Module mixin for Chord symbols
   module ChordSymbolCollection
-  
-    # WARNING: This is basically duplicated from ChordSymbol
-    # Find way to make this DRY!
-    # 
-    # Finds a chord symbol
+    # Finds a chord symbol within the collection
     def resolve(symbol)
-      self.detect do |cs|
-        cs.case_sensitive? ? (cs.name == symbol) : (cs.name.downcase == symbol.downcase)
-      end
+      detect { |cs| cs.matches?(symbol) }
     end
     alias_method :[], :resolve
-  
   end
 end
