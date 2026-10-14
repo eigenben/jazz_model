@@ -1,22 +1,21 @@
 module JazzModel
-  # Intended to be used as a dynamic object extension of an Array representing 
+  # Intended to be used as a dynamic object extension of an Array representing
   # a collection of chords for some added convenience.
-  # 
+  #
   # For example, even though the base class is an Array, we can write:
-  # 
+  #
   # * +scale.chords.symbols+ - For an array of symbols.
   # * +scale.chords.names+ - For an array of full names.
-  # 
+  #
   module ChordCollection
-  
     # Formats chord collection
     def to_s(format = :symbols)
       case format
-      when :symbols then symbols.join(', ')
-      when :names then names.join(', ')
+      when :symbols then symbols.join(", ")
+      when :names then names.join(", ")
       end
     end
-  
+
     # Returns array of chord symbols only
     def symbols
       map { |c| "#{c.key&.name}#{c.primary_symbol.name}" }

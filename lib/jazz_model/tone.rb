@@ -1,11 +1,11 @@
 module JazzModel
-  # Abstract base class for the concept of a tone. 
-  # Eventually will be expanded with common functionality for 
-  # all tone objects.  
-  # 
+  # Abstract base class for the concept of a tone.
+  # Eventually will be expanded with common functionality for
+  # all tone objects.
+  #
   class Tone < JazzModel::Base
     self.abstract_class = true
-  
+
     # Defines constants representing intervals
     module Interval
       ROOT = 0
@@ -28,7 +28,7 @@ module JazzModel
       MAJOR_7TH = 11
       OCTAVE = 12
     end
-  
+
     # Defines constants representing letter intervals
     module LetterInterval
       FIRST = 0
@@ -39,13 +39,12 @@ module JazzModel
       SIXTH = 5
       SEVENTH = 6
     end
-  
+
     module Offsets
       LOWERED = -1
       RAISED = 1
       DOUBLE_LOWERED = -2
       DOUBLE_RAISED = 2
     end
-  
   end
 end
