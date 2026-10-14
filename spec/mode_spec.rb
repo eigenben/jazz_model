@@ -22,3 +22,13 @@ RSpec.describe JazzModel::Mode, "numbering" do
     expect(JazzModel::Scale["Melodic Minor"]["Super Locrian"].notes).to eq(%w[B C D Eb F G A])
   end
 end
+
+RSpec.describe JazzModel::Mode, "chords" do
+  it "relates Dorian to minor chords" do
+    expect(JazzModel::Scale["Major"]["Dorian"].chords.symbols).to contain_exactly("min", "min7", "min6")
+  end
+
+  it "does not relate Ionian to minor chords" do
+    expect(JazzModel::Scale["Major"]["Ionian"].chords.symbols).not_to include("min6")
+  end
+end

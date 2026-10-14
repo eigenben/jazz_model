@@ -251,7 +251,7 @@ JazzModel::Definition.define default: [:keys] do
         {tone: JazzModel::Tone::Interval::MAJOR_6TH, letter_index: JazzModel::Tone::LetterInterval::SIXTH, strength: 1}
       ])
 
-      c.chord_scales << JazzModel::ChordScale.specify(JazzModel::Scale["Major"][1])
+      c.chord_scales << JazzModel::ChordScale.specify(JazzModel::Scale["Major"][2])
     end
 
     q.chords.create!(name: "Phrygian").tap do |c|
