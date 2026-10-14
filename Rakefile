@@ -1,14 +1,6 @@
-require 'rubygems'
-require 'rake'
-require 'rake/rdoctask'
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
 
-desc "Generate documentation for the plugin."
-Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = "rdoc"
-  rdoc.title    = "message_block"
-  rdoc.options << "--line-numbers" << "--inline-source"
-  rdoc.rdoc_files.include('README')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
+RSpec::Core::RakeTask.new(:spec)
 
-Dir["#{File.dirname(__FILE__)}/lib/tasks/*.rake"].sort.each { |ext| load ext }
+task default: :spec

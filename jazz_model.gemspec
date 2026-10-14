@@ -22,10 +22,11 @@ Gem::Specification.new do |s|
   s.files = Dir["lib/**/*.rb", "db/**/*.rb", "README.md", "LICENSE.txt"]
   s.require_paths = ["lib"]
 
-  s.add_dependency("activerecord", ["~> 3.1.0"])
-  s.add_dependency("activesupport", ["~> 3.1.0"])
-  s.add_dependency("acts_as_list", [">= 0.1.2"])
-  s.add_dependency("acts_as_tree", [">= 0.1.1"])
-  s.add_dependency("sqlite3", ["~> 1.3.0"])
-  s.add_development_dependency("rspec", ["~> 2.0"])
+  s.required_ruby_version = ">= 3.2"
+
+  s.add_dependency "activerecord", ">= 7.1", "< 9"
+  s.add_dependency "activesupport", ">= 7.1", "< 9"
+  s.add_dependency "acts_as_list", ">= 1.0"
+  s.add_dependency "acts_as_tree", ">= 2.9"
+  s.add_dependency "sqlite3", ">= 2.0"
 end
