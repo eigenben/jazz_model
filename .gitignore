@@ -6,3 +6,4 @@
 /.yardoc/
 *.gem
 .rspec_status
+/gemfiles/*.lock
