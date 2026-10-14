@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jazz_model (0.1.0)
+    jazz_model (0.2.0)
       activerecord (>= 7.2, < 9)
       activesupport (>= 7.2, < 9)
       acts_as_list (>= 1.0)
